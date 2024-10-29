@@ -66,7 +66,7 @@ for (let contador = 0; contador < data.numbers.length; contador++) {
 console.log(`Números +2 ${data.firstFloor.secondFloor.numbersPlus2}`);
 console.log(`Números x2 ${data.firstFloor.thirdFloor.numbersDouble}`);
 console.log(`Números %2 ${data.fourthFloor.numbersDividedBy2}`);
-console.log(`Números pares ${data.fithFloor.onlyEven}`);
+console.log(`Números pares ${data.fifthFloor.onlyEven}`);
 console.log(`Números impares ${data.fifthFloor.onlyOdd}`);
 
 
@@ -100,19 +100,31 @@ const dataStrings = {
   },
 };
 
+const input = 'Si no estudias acabarás como Enrique'
+let phrase = '';
 
-for (let counter = 0; counter < dataStrings.length; counter++) {
-  const phrase = dataStrings[counter]; 
+for (let counter = 0; counter < input.length; counter++) {
+  const letter = input[counter]; 
+  
+  if (letter === ' ');
+ // !!! Procesar la frase acumulada cuando se encuentra un espacio
 
-  let fillPhrase = '';
-
+  const lowerPhrase = phrase.toLowerCase();
+  const upperPhrase = phrase.toUpperCase();
+  
   if ('aeiou'.includes(phrase)) {
     dataStrings.firstFloor.vowels.push(phrase); 
   } else ('bcdfghjklmnpqrstvwxyz'.includes(phrase)); {
-    data.Strings.SecondFloor.consonants.push(phrase)
-    fillPhrase += phrase;
+    dataStrings.secondFloor.consonants.push(phrase);
+    phrase += letter;
   }
-  console.log(fillPhrase);
+
+  
+  dataStrings.fourthFloor.asciiCode.push(letter.charCodeAt(0));  // Agregar código ASCII de cada letra
+  dataStrings.fifthFloor.wordsInLowercase.push(upperPhrase);
+  dataStrings.fifthFloor.wordsInUppercase.push(lowerPhrase); 
 };
 
-dataStrings('Si no estudias acabarás como Enrique');
+console.log(dataStrings);
+
+
