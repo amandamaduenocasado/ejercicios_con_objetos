@@ -47,22 +47,28 @@ const data = {
   },
 };
 
-data.changeNumbers = () => {
-  data.numbers.forEach(number => {
-    data.firstFloor.secondFloor.numbersPlus2.push(number + 2);
-    data.firstFloor.thirdFloor.numbersDouble.push(number * 2);
-    data.fourthFloor.numbersDividedBy2.push(number / 2);
+for (let contador = 0; contador < data.numbers.length; contador++) {
+  const arrayNumbers = data.numbers[contador];
 
-    if (number % 2 === 0) {
-      data.fifthFloor.onlyEven.push(number);
-    } else {
-      data.fifthFloor.onlyOdd.push(number);
-    }
-  });
-};
+  // Rellenar los arrays correspondientes
+  data.firstFloor.secondFloor.numbersPlus2.push(arrayNumbers + 2);
+  data.firstFloor.thirdFloor.numbersDouble.push(arrayNumbers * 2);
+  data.fourthFloor.numbersDividedBy2.push(arrayNumbers / 2);
 
-data.changeNumbers();
-console.log(data);
+  // Clasificar números en pares e impares
+  if (arrayNumbers % 2 === 0) {
+    data.fifthFloor.onlyEven.push(arrayNumbers);
+  } else {
+    data.fifthFloor.onlyOdd.push(arrayNumbers);
+  }
+}
+
+console.log(`Números +2 ${data.firstFloor.secondFloor.numbersPlus2}`);
+console.log(`Números x2 ${data.firstFloor.thirdFloor.numbersDouble}`);
+console.log(`Números %2 ${data.fourthFloor.numbersDividedBy2}`);
+console.log(`Números pares ${data.fithFloor.onlyEven}`);
+console.log(`Números impares ${data.fifthFloor.onlyOdd}`);
+
 
 /* Crea una función que reciba una frase, por ejemplo "Si no estudias acabarás como Enrique", y rellena el objeto con valores que te pide. Revisa la documentación de los strings si hay algo que no sabes obtener.
   https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/String */
@@ -94,35 +100,19 @@ const dataStrings = {
   },
 };
 
-const vowels = 'aeiouáéíóúAEIOUÁÉÍÓÚ';
-const consonants = 'bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ';
 
-let currentWord = '';
+for (let counter = 0; counter < dataStrings.length; counter++) {
+  const phrase = dataStrings[counter]; 
 
-for (let i = 0; i < phrase.length; i++) {
-  const character = phrase[i];
+  let fillPhrase = '';
 
-  if (vowels.includes(character)) {
-    dataStrings.firstFloor.vowels.push(character);
-  } else if (consonants.includes(character)) {
-    dataStrings.secondFloor.consonants.push(character);
+  if ('aeiou'.includes(phrase)) {
+    dataStrings.firstFloor.vowels.push(phrase); 
+  } else ('bcdfghjklmnpqrstvwxyz'.includes(phrase)); {
+    data.Strings.SecondFloor.consonants.push(phrase)
+    fillPhrase += phrase;
   }
+  console.log(fillPhrase);
+};
 
-  if (char !== ' ') {
-    currentWord += character;
-  } else {
-    if (currentWord) {
-      if (currentWord === currentWord.toUpperCase()) {
-        dataStrings.fifthFloor.wordsInUppercase.push(currentWord);
-      } else if (currentWord === currentWord.toLowerCase()) {
-        dataStrings.fifthFloor.wordsInLowercase.push(currentWord);
-      }
-      currentWord = '';
-    }
-  }
-  return dataStrings;
-}
-
-const phrase = 'Si no estudias acabarás como Enrique';
-const result = analyzePhrase(phrase);
-console.log(result);
+dataStrings('Si no estudias acabarás como Enrique');
