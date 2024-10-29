@@ -47,19 +47,17 @@ const data = {
   },
 };
 
-for (let contador = 0; contador < data.numbers.length; contador++) {
-  const arrayNumbers = data.numbers[contador];
-
+for (const number of dataNumbers.numbers) {
   // Rellenar los arrays correspondientes
-  data.firstFloor.secondFloor.numbersPlus2.push(arrayNumbers + 2);
-  data.firstFloor.thirdFloor.numbersDouble.push(arrayNumbers * 2);
-  data.fourthFloor.numbersDividedBy2.push(arrayNumbers / 2);
+  data.firstFloor.secondFloor.numbersPlus2.push(numbers + 2);
+  data.firstFloor.thirdFloor.numbersDouble.push(numbers * 2);
+  data.fourthFloor.numbersDividedBy2.push(numbers / 2);
 
   // Clasificar números en pares e impares
-  if (arrayNumbers % 2 === 0) {
-    data.fifthFloor.onlyEven.push(arrayNumbers);
+  if (number % 2 === 0) {
+    dataNumbers.fifthFloor.onlyEven.push(numbers);
   } else {
-    data.fifthFloor.onlyOdd.push(arrayNumbers);
+    dataNumbers.fifthFloor.onlyOdd.push(numbers);
   }
 }
 
@@ -68,7 +66,6 @@ console.log(`Números x2 ${data.firstFloor.thirdFloor.numbersDouble}`);
 console.log(`Números %2 ${data.fourthFloor.numbersDividedBy2}`);
 console.log(`Números pares ${data.fifthFloor.onlyEven}`);
 console.log(`Números impares ${data.fifthFloor.onlyOdd}`);
-
 
 /* Crea una función que reciba una frase, por ejemplo "Si no estudias acabarás como Enrique", y rellena el objeto con valores que te pide. Revisa la documentación de los strings si hay algo que no sabes obtener.
   https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/String */
@@ -100,31 +97,68 @@ const dataStrings = {
   },
 };
 
-const input = 'Si no estudias acabarás como Enrique'
-let phrase = '';
+const analyzePhrase = phrase => {
+  const vowels = 'aeiou';
+  const consonants = 'bcdfghjklmnñpqrstvwxyz';
+  const abecedary = 'abcdefghijklmnñopqrstuvwxyz';
 
-for (let counter = 0; counter < input.length; counter++) {
-  const letter = input[counter]; 
-  
-  if (letter === ' ');
- // !!! Procesar la frase acumulada cuando se encuentra un espacio
+  let wordsInUppercase = '';
+  let wordsInLowercase = '';
 
-  const lowerPhrase = phrase.toLowerCase();
-  const upperPhrase = phrase.toUpperCase();
-  
-  if ('aeiou'.includes(phrase)) {
-    dataStrings.firstFloor.vowels.push(phrase); 
-  } else ('bcdfghjklmnpqrstvwxyz'.includes(phrase)); {
-    dataStrings.secondFloor.consonants.push(phrase);
-    phrase += letter;
+  let encryptedPhrase = '';
+
+  for (const letter of phrase.toLowerCase()) {
+    if (vowels.includes(letter)) {
+      dataStrings.firstFloor.vowels.push(letter);
+    } else if (consonants.includes(letter)) {
+      dataStrings.secondFloor.consonants.push(letter);
+    }
+
+    dataStrings.fourthFloor.asciiCode.push(letter.charCodeAt());
+
+    if (letter !== ' ') {
+      wordsInUppercase = wordsInUppercase + letter.toUpperCase();
+      wordsInLowercase = wordsInLowercase + letter.toLowerCase();
+    } else {
+      dataStrings.fifthFloor.wordsInUppercase.push(wordsInUppercase);
+      dataStrings.fifthFloor.wordsInLowercase.push(wordsInLowercase);
+      wordsInUppercase = '';
+      wordsInLowercase = '';
+    }
+
+    // CODIFICACIÓN CONSONANTES
+    if (consonants.includes(letter)) {
+      let currentConsonantIndex = consonants.indexOf(letter);
+      if (currentConsonantIndex === 0) {
+        currentConsonantIndex = consonants.length - 1;
+        encryptedPhrase = encryptedPhrase + consonants.charAt(currentConsonantIndex);
+      } else {
+        encryptedPhrase = encryptedPhrase + consonants.charAt(currentConsonantIndex - 1);
+      }
+    } else if (letter === ' ') {
+      const randomPosition = Math.floor(Math.random() * abecedary.length);
+      encryptedPhrase = encryptedPhrase + abecedary.charAt(randomPosition);
+    } else {
+      encryptedPhrase = encryptedPhrase + letter;
+    }
+  } // FIN DEL BUCLE
+
+  encryptedPhrase = encryptedPhrase
+    .replaceAll('a', 1)
+    .replaceAll('e', 2)
+    .replaceAll('e', 2)
+    .replaceAll('i', 3)
+    .replaceAll('o', 4)
+    .replaceAll('u', 5);
+
+  console.log(encryptedPhrase);
+
+  if (wordsInUppercase.length > 0) {
+    dataStrings.fifthFloor.wordsInUppercase.push(wordsInUppercase);
+    dataStrings.fifthFloor.wordsInLowercase.push(wordsInLowercase);
   }
-
-  
-  dataStrings.fourthFloor.asciiCode.push(letter.charCodeAt(0));  // Agregar código ASCII de cada letra
-  dataStrings.fifthFloor.wordsInLowercase.push(upperPhrase);
-  dataStrings.fifthFloor.wordsInUppercase.push(lowerPhrase); 
 };
 
+analyzePhrase('Estamos viendo objetos');
+
 console.log(dataStrings);
-
-
